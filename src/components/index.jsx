@@ -60,7 +60,7 @@ class MaterialUiPhoneNumber extends React.Component {
         if (country.dialCode.length > selectedCountry.dialCode.length) {
           return country;
         }
-        if (country.dialCode.length === selectedCountry.dialCode.length && country.priority < selectedCountry.priority) {
+       if (country.dialCode.length === selectedCountry.dialCode.length && country.priority < selectedCountry.priority) {
           return country;
         }
       }
@@ -73,8 +73,23 @@ class MaterialUiPhoneNumber extends React.Component {
 
   constructor(props) {
     super(props);
+     countryData.allCountries.forEach((d)=> {
+      //// Fixed the issue for same country code for US as well as Canada
+      /* Refactor will do in next version */
+      if(d.iso2 === props.defaultCountry && d.dialCode.toString() ==='1'){
+        d.priority = 0;
+      }
+     })
+     const countryObj = countryData.allCountries.find(d=> d.iso2 === props.defaultCountry);
+     if(countryObj){
+      countryData.allCountries.forEach(v => {
+        if(v.dialCode === k.dialCode  && v.dialCode.toString() ==='1'  && v.iso2 !== props.defaultCountry){
+          v.priority = 1;
+        }
+      });
+     }
+     /* end */
     let filteredCountries = countryData.allCountries;
-
     if (props.disableAreaCodes) filteredCountries = this.deleteAreaCodes(filteredCountries);
     if (props.regions) filteredCountries = this.filterRegions(props.regions, filteredCountries);
 
