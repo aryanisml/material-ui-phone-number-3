@@ -81,7 +81,7 @@ class MaterialUiPhoneNumber extends React.Component {
       }
      })
      const countryObj = countryData.allCountries.find(d=> d.iso2 === props.defaultCountry);
-     if(countryObj && object.keys(countryObj).length>0){
+     if(countryObj){
       countryData.allCountries.forEach(v => {
         if(v.dialCode === countryObj.dialCode  && v.dialCode.toString() ==='1'  && v.iso2 !== props.defaultCountry){
           v.priority = 1;
