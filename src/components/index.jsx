@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { object } from 'prop-types';
 import clsx from 'clsx';
 import Flags from 'country-flag-icons/react/3x2'
 import TextField from '@mui/material/TextField';
@@ -81,9 +81,9 @@ class MaterialUiPhoneNumber extends React.Component {
       }
      })
      const countryObj = countryData.allCountries.find(d=> d.iso2 === props.defaultCountry);
-     if(countryObj){
+     if(countryObj && object.keys(countryObj).length>0){
       countryData.allCountries.forEach(v => {
-        if(v.dialCode === k.dialCode  && v.dialCode.toString() ==='1'  && v.iso2 !== props.defaultCountry){
+        if(v.dialCode === countryObj.dialCode  && v.dialCode.toString() ==='1'  && v.iso2 !== props.defaultCountry){
           v.priority = 1;
         }
       });
